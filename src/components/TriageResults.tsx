@@ -59,17 +59,17 @@ export function TriageResults({ result }: TriageResultsProps) {
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
-          <h2 className="text-2xl font-bold">{metadata.log_file.filename}</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <h2 className="text-2xl font-bold" style={{ fontFamily: 'Geist Mono, monospace' }}>{metadata.log_file.filename}</h2>
+          <p className="mt-2 text-sm text-muted-foreground" style={{ fontFamily: 'Geist Mono, monospace' }}>
             {formatBytes(metadata.log_file.size_bytes)} • Confidence: {triage.classification.confidence}% •
             Processed in {metadata.processing_time_ms}ms
           </p>
         </div>
         <div className="flex gap-2">
-          <Badge variant={getCategoryVariant(triage.classification.category)}>
+          <Badge variant={getCategoryVariant(triage.classification.category)} style={{ fontFamily: 'Geist Mono, monospace' }}>
             {triage.classification.category}
           </Badge>
-          <Badge variant={getPriorityVariant(triage.classification.priority)}>
+          <Badge variant={getPriorityVariant(triage.classification.priority)} style={{ fontFamily: 'Geist Mono, monospace' }}>
             {triage.classification.priority}
           </Badge>
         </div>
@@ -84,19 +84,19 @@ export function TriageResults({ result }: TriageResultsProps) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
               <dt className="text-xs font-medium text-muted-foreground">Manual Triage</dt>
-              <dd className="mt-1 text-lg font-semibold">{time_savings.manual_triage_minutes} min</dd>
+              <dd className="mt-1 text-lg font-semibold" style={{ fontFamily: 'Geist Mono, monospace' }}>{time_savings.manual_triage_minutes} min</dd>
             </div>
             <div>
               <dt className="text-xs font-medium text-muted-foreground">Automated</dt>
-              <dd className="mt-1 text-lg font-semibold">{time_savings.automated_triage_seconds}s</dd>
+              <dd className="mt-1 text-lg font-semibold" style={{ fontFamily: 'Geist Mono, monospace' }}>{time_savings.automated_triage_seconds}s</dd>
             </div>
             <div>
               <dt className="text-xs font-medium text-muted-foreground">Time Saved</dt>
-              <dd className="mt-1 text-lg font-semibold text-green-500">{time_savings.time_saved_minutes} min</dd>
+              <dd className="mt-1 text-lg font-semibold text-green-500" style={{ fontFamily: 'Geist Mono, monospace' }}>{time_savings.time_saved_minutes} min</dd>
             </div>
             <div>
               <dt className="text-xs font-medium text-muted-foreground">Efficiency Gain</dt>
-              <dd className="mt-1 text-lg font-semibold text-green-500">{time_savings.efficiency_gain_percent}%</dd>
+              <dd className="mt-1 text-lg font-semibold text-green-500" style={{ fontFamily: 'Geist Mono, monospace' }}>{time_savings.efficiency_gain_percent}%</dd>
             </div>
           </div>
         </CardContent>
@@ -107,48 +107,52 @@ export function TriageResults({ result }: TriageResultsProps) {
         <CardHeader>
           <CardTitle>Test Information</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <dt className="text-sm font-medium text-muted-foreground">Test Name</dt>
-            <dd className="mt-1 text-sm">{triage.test_name}</dd>
-          </div>
-          <Separator />
-          <div>
-            <dt className="text-sm font-medium text-muted-foreground">Error Type</dt>
-            <dd className="mt-1 text-sm">{triage.error_type}</dd>
-          </div>
-          <Separator />
-          <div>
-            <dt className="text-sm font-medium text-muted-foreground">Location</dt>
-            <dd className="mt-1 text-sm font-mono">{triage.location}</dd>
-          </div>
-          <Separator />
-          <div>
-            <dt className="text-sm font-medium text-muted-foreground">Instance Count</dt>
-            <dd className="mt-1 text-sm">{triage.analysis.failure_signature.instance_count}</dd>
-          </div>
+        <CardContent>
+          <table className="w-full">
+            <tbody>
+              <tr className="border-b border-border">
+                <td className="py-3 text-sm font-medium text-muted-foreground w-1/3">Test Name</td>
+                <td className="py-3 text-sm" style={{ fontFamily: 'Geist Mono, monospace' }}>{triage.test_name}</td>
+              </tr>
+              <tr className="border-b border-border">
+                <td className="py-3 text-sm font-medium text-muted-foreground">Error Type</td>
+                <td className="py-3 text-sm" style={{ fontFamily: 'Geist Mono, monospace' }}>{triage.error_type}</td>
+              </tr>
+              <tr className="border-b border-border">
+                <td className="py-3 text-sm font-medium text-muted-foreground">Location</td>
+                <td className="py-3 text-sm" style={{ fontFamily: 'Geist Mono, monospace' }}>{triage.location}</td>
+              </tr>
+              <tr>
+                <td className="py-3 text-sm font-medium text-muted-foreground">Instance Count</td>
+                <td className="py-3 text-sm" style={{ fontFamily: 'Geist Mono, monospace' }}>{triage.analysis.failure_signature.instance_count}</td>
+              </tr>
+            </tbody>
+          </table>
         </CardContent>
       </Card>
 
-      {/* Summary Card */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Summary</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm leading-relaxed">{triage.summary}</p>
-        </CardContent>
-      </Card>
+      {/* Summary and Reasoning Row */}
+      <div className="grid grid-cols-1 md:grid-cols-10 gap-6">
+        {/* Summary Card */}
+        <Card className="md:col-span-3">
+          <CardHeader>
+            <CardTitle>Summary</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm leading-relaxed" style={{ fontFamily: 'Geist Mono, monospace' }}>{triage.summary}</p>
+          </CardContent>
+        </Card>
 
-      {/* Reasoning Card */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Analysis Reasoning</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm leading-relaxed whitespace-pre-line">{triage.analysis.reasoning}</p>
-        </CardContent>
-      </Card>
+        {/* Reasoning Card */}
+        <Card className="md:col-span-7">
+          <CardHeader>
+            <CardTitle>Analysis Reasoning</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm leading-relaxed whitespace-pre-line" style={{ fontFamily: 'Geist Mono, monospace' }}>{triage.analysis.reasoning}</p>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Timeline Card */}
       {triage.analysis.timeline.length > 0 && (
@@ -162,8 +166,8 @@ export function TriageResults({ result }: TriageResultsProps) {
                 <div key={index} className="flex items-start gap-3 text-sm">
                   {getSeverityIcon(event.severity)}
                   <div className="flex-1">
-                    <div className="font-medium">{event.timestamp}</div>
-                    <div className="text-muted-foreground">{event.event}</div>
+                    <div className="font-medium" style={{ fontFamily: 'Geist Mono, monospace' }}>{event.timestamp}</div>
+                    <div className="text-muted-foreground" style={{ fontFamily: 'Geist Mono, monospace' }}>{event.event}</div>
                   </div>
                 </div>
               ))}
@@ -180,12 +184,12 @@ export function TriageResults({ result }: TriageResultsProps) {
         <CardContent className="space-y-4">
           <div>
             <dt className="text-sm font-medium text-muted-foreground">Owner</dt>
-            <dd className="mt-1 text-sm">{triage.recommendations.owner}</dd>
+            <dd className="mt-1 text-sm" style={{ fontFamily: 'Geist Mono, monospace' }}>{triage.recommendations.owner}</dd>
           </div>
           <Separator />
           <div>
             <dt className="text-sm font-medium text-muted-foreground">Estimated Effort</dt>
-            <dd className="mt-1 text-sm">{triage.recommendations.estimated_effort_hours} hours</dd>
+            <dd className="mt-1 text-sm" style={{ fontFamily: 'Geist Mono, monospace' }}>{triage.recommendations.estimated_effort_hours} hours</dd>
           </div>
           <Separator />
           <div>
@@ -194,7 +198,7 @@ export function TriageResults({ result }: TriageResultsProps) {
               {triage.recommendations.actions.map((action, index) => (
                 <li key={index} className="text-sm flex items-start gap-2">
                   <span className="text-muted-foreground">{index + 1}.</span>
-                  <span>{action}</span>
+                  <span style={{ fontFamily: 'Geist Mono, monospace' }}>{action}</span>
                 </li>
               ))}
             </ul>
@@ -222,7 +226,7 @@ export function TriageResults({ result }: TriageResultsProps) {
               {triage.related_failures.map((failure, index) => (
                 <li key={index} className="text-sm flex items-start gap-2">
                   <span className="text-muted-foreground">•</span>
-                  <span>{failure}</span>
+                  <span style={{ fontFamily: 'Geist Mono, monospace' }}>{failure}</span>
                 </li>
               ))}
             </ul>
@@ -239,15 +243,15 @@ export function TriageResults({ result }: TriageResultsProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <dt className="text-xs font-medium text-muted-foreground">Blocks Testing</dt>
-              <dd className="mt-1 text-sm">{triage.impact.blocks_testing ? 'Yes' : 'No'}</dd>
+              <dd className="mt-1 text-sm" style={{ fontFamily: 'Geist Mono, monospace' }}>{triage.impact.blocks_testing ? 'Yes' : 'No'}</dd>
             </div>
             <div>
               <dt className="text-xs font-medium text-muted-foreground">Security Related</dt>
-              <dd className="mt-1 text-sm">{triage.impact.affects_security ? 'Yes' : 'No'}</dd>
+              <dd className="mt-1 text-sm" style={{ fontFamily: 'Geist Mono, monospace' }}>{triage.impact.affects_security ? 'Yes' : 'No'}</dd>
             </div>
             <div>
               <dt className="text-xs font-medium text-muted-foreground">Reproducibility</dt>
-              <dd className="mt-1 text-sm capitalize">{triage.impact.reproducibility.replace('_', ' ')}</dd>
+              <dd className="mt-1 text-sm capitalize" style={{ fontFamily: 'Geist Mono, monospace' }}>{triage.impact.reproducibility.replace('_', ' ')}</dd>
             </div>
           </div>
         </CardContent>
