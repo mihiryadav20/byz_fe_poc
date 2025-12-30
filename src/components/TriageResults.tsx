@@ -1,5 +1,5 @@
 import type { TriageResult } from '@/types/triage';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { AlertCircleIcon, AlertTriangleIcon, InfoIcon } from 'lucide-react';

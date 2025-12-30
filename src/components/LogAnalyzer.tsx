@@ -3,7 +3,6 @@ import type { TriageResult } from '@/types/triage';
 import { analyzeLogFile, TriageApiError } from '@/services/triageApi';
 import { TriageResults } from '@/components/TriageResults';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { AlertCircleIcon, FileTextIcon, LoaderIcon, UploadIcon, XIcon, Upload } from 'lucide-react';
 import { Label } from '@/components/ui/label';

@@ -1,14 +1,17 @@
 import type { TriageResult } from '@/types/triage';
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://byzantex-poc.onrender.com';
 
 export class TriageApiError extends Error {
+  status?: number;
+
   constructor(
     message: string,
-    public status?: number
+    status?: number
   ) {
     super(message);
     this.name = 'TriageApiError';
+    this.status = status;
   }
 }
 
