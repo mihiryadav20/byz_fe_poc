@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { AlertCircleIcon, FileTextIcon, LoaderIcon, UploadIcon, XIcon, Upload } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
+import PixelBlast from '@/components/PixelBlast';
 
 export function LogAnalyzer() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -109,7 +110,18 @@ export function LogAnalyzer() {
   };
 
   return (
-    <div className={cn("min-h-screen bg-background p-8", !triageResult && "flex items-center justify-center")}>
+    <div className={cn("min-h-screen bg-background p-8 relative", !triageResult && "flex items-center justify-center")}>
+      {!triageResult && (
+        <div className="absolute inset-0 pointer-events-none" style={{ width: '100%', height: '100%' }}>
+          <PixelBlast
+            variant="diamond"
+    pixelSize={5}
+    pixelSizeJitter={1.45}
+    color="#d31d1d"
+
+          />
+        </div>
+      )}
       {triageResult ? (
         <div className="mx-auto max-w-4xl space-y-8">
           {/* Results Display */}
@@ -127,14 +139,14 @@ export function LogAnalyzer() {
           </div>
         </div>
       ) : (
-        <div className="mx-auto max-w-lg space-y-8">
+        <div className="mx-auto max-w-lg space-y-8 relative z-10">
           {/* Header */}
-          <div className="text-center">
+          <div className="text-center bg-background p-4 rounded-lg">
             <h1 className="text-4xl font-normal whitespace-nowrap">Your logs, decoded instantly!</h1>
           </div>
 
           {/* Upload Area */}
-          <div>
+          <div className="bg-background p-6 rounded-lg">
             <h3 className="text-lg font-semibold text-foreground">File Upload</h3>
             <div
               onDragEnter={handleDragEnter}
@@ -142,9 +154,9 @@ export function LogAnalyzer() {
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               className={cn(
-                "mt-4 flex justify-center space-x-4 rounded-md border border-dashed px-6 py-10 transition-colors",
+                "mt-4 flex justify-center space-x-4 rounded-md border border-dashed px-6 py-10 transition-colors bg-background",
                 isDragActive
-                  ? 'border-primary bg-primary/5'
+                  ? 'border-primary bg-primary/10'
                   : 'border-input'
               )}
             >
@@ -179,7 +191,7 @@ export function LogAnalyzer() {
 
             {/* Selected File Preview */}
             {selectedFile && (
-              <div className="relative mt-8 rounded-lg bg-muted p-3">
+              <div className="relative mt-8 rounded-lg bg-muted p-3 opacity-100">
                 <div className="absolute right-1 top-1">
                   <Button
                     type="button"
@@ -214,7 +226,7 @@ export function LogAnalyzer() {
 
             {/* Error Display */}
             {error && (
-              <div className="mt-4 flex items-start gap-3 rounded-lg border border-destructive/50 bg-destructive/10 p-4">
+              <div className="mt-4 flex items-start gap-3 rounded-lg border border-destructive/50 bg-destructive/10 p-4 opacity-100">
                 <AlertCircleIcon className="h-5 w-5 text-destructive mt-0.5" />
                 <div className="flex-1">
                   <p className="text-sm font-medium text-destructive">Error</p>
@@ -228,7 +240,7 @@ export function LogAnalyzer() {
               <Button
                 type="button"
                 variant="default"
-                className="w-full whitespace-nowrap rounded-sm bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90"
+                className="w-full whitespace-nowrap rounded-sm bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 opacity-100"
                 onClick={handleUpload}
                 disabled={!selectedFile || isUploading}
               >
